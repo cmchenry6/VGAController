@@ -4,14 +4,14 @@
 // Credits to Juan Manuel Rico's vga-clock
 // https://github.com/mattvenn/vga-clock/tree/master
 
-module Vgacontroller (
+module VGAcontroller (
 	input wire pix_clk,
 	input wire reset,
 	output wire hsync,
 	output wire vsync,
 	output reg x_pix [9:0],
 	output reg y_pix [9:0],
-	output wire inDisplay
+	output wire de 
 	);
 //Values below can be changed to accomodate for different screen resolutions
 parameter activeHvideo = 640;
@@ -50,6 +50,6 @@ end
 
 assign hsync = ~((hcount >= (activeHvideo + hfp)) && (hcount < (activeHvideo + hfp + hsyncpulse)));
 assign vsync = ~((vcount >= (activeVvideo + vfp)) && (vcount < (activeVvideo + vfp + vsyncpulse)));
-assign inDisplay = (hcount < activeHvideo && vcount < activeVvideo);
+assign de = (hcount < activeHvideo && vcount < activeVvideo);
 
 endmodule
